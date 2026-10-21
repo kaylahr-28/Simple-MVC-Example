@@ -20,9 +20,12 @@ const hostPage1 = async (req, res) => {
     return res.render('page1', { cats: docs });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({
-      error: 'failed to find cats :('
+    if (err.code === 11000){
+       return res.status(500).json({
+      error: 'cat with this name alr exists';
     })
+    }
+   
   }
 };
 
